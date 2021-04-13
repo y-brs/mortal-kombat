@@ -9,7 +9,10 @@ const player1 = {
 	weapon: ["gun", "stone"],
 	attack: function(name) {
 		console.log (name + "Fight...");
-	}
+	},
+	elHP: elHP,
+	changeHP: changeHP,
+	renderHP: renderHP
 };
 
 const player2 = {
@@ -20,7 +23,10 @@ const player2 = {
 	weapon: ["gun", "stone"],
 	attack: function(name) {
 		console.log (name + "Fight...");
-	}
+	},
+	elHP: elHP,
+	changeHP: changeHP,
+	renderHP: renderHP
 };
 
 function createElement(tag, className) {
@@ -54,16 +60,23 @@ function createPlayer(playerObj) {
 	return $player;
 };
 
-function changeHP(player) {
-	const $playerLife = document.querySelector(".player" + player.player + " .life");
-	player.hp -= getRandom(20);
+function changeHP(num) {
+	this.hp -= num;
 
-	if (player.hp <= 0) {
-		player.hp = 0;
+	if (this.hp <= 0) {
+		this.hp = 0;
 	}
-
-	$playerLife.style.width = player.hp + '%';
 };
+
+function elHP() {
+	const playerLife = document.querySelector(".player" + this.player + " .life");
+
+	return playerLife;
+}
+
+function renderHP() {
+	this.elHP().style.width = this.hp + "%";
+}
 
 function showResultText(name) {
 	const $showResult = createElement('div', 'loseTitle');
@@ -81,19 +94,42 @@ function getRandom(num) {
 	return Math.ceil(Math.random() * num);
 };
 
+function createReloadButton() {
+	const $restart = createElement("div", "reloadWrap");
+	const $restartButton = createElement("button", "button");
+
+	$restartButton.innerText = "Restart";
+
+	$restartButton.onclick = function() {
+		window.location.reload();
+	};
+
+	$restart.appendChild($restartButton);
+
+	return $restart;
+};
+
+
+
 $randomButton.addEventListener("click", function() {
-	changeHP(player1);
-	changeHP(player2);
+	player1.changeHP(getRandom(20));
+	player1.renderHP();
+
+	player2.changeHP(getRandom(20));
+	player2.renderHP();
 
 	if (player1.hp === 0 || player2.hp === 0) {
-		$randomButton.disabled = true;
+		// $randomButton.disabled = true;
+		$randomButton.style.visibility = "hidden";
+
+		$arenas.appendChild(createReloadButton());
 	}
 
 	if (player1.hp === 0 && player1.hp < player2.hp) {
 		$arenas.appendChild(showResultText(player2.name));
 	} else if (player2.hp === 0 && player2.hp < player1.hp) {
 		$arenas.appendChild(showResultText(player1.name));
-	} else if (player1.hp === 0 && player1.hp < player2.hp) {
+	} else if (player1.hp === 0 && player2.hp === 0) {
 		$arenas.appendChild(showResultText());
 	}
 });
