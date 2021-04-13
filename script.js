@@ -7,8 +7,8 @@ const player1 = {
 	hp: "100",
 	img: "http://reactmarathon-api.herokuapp.com/assets/scorpion.gif",
 	weapon: ["gun", "stone"],
-	attack: function() {
-		console.log (player1.name + "Fight...");
+	attack: function(name) {
+		console.log (name + "Fight...");
 	}
 };
 
@@ -18,8 +18,8 @@ const player2 = {
 	hp: "100",
 	img: "http://reactmarathon-api.herokuapp.com/assets/sonya.gif",
 	weapon: ["gun", "stone"],
-	attack: function() {
-		console.log (player2.name + "Fight...");
+	attack: function(name) {
+		console.log (name + "Fight...");
 	}
 };
 
@@ -56,57 +56,46 @@ function createPlayer(playerObj) {
 
 function changeHP(player) {
 	const $playerLife = document.querySelector(".player" + player.player + " .life");
-
-	player.hp -= randomDamage();
+	player.hp -= getRandom(20);
 
 	if (player.hp <= 0) {
 		player.hp = 0;
-		$randomButton.disabled = true;
 	}
 
 	$playerLife.style.width = player.hp + '%';
 };
 
-function playerFight(firstPlayer, secondPlayer) {
-	if (firstPlayer.hp === 0 && secondPlayer.hp === 0) {
-		$arenas.appendChild(playerDraw());
-	} else if (firstPlayer.hp === 0) {
-		$arenas.appendChild(playerWin(secondPlayer.name));
-	} else if (secondPlayer.hp === 0) {
-		$arenas.appendChild(playerWin(firstPlayer.name));
+function showResultText(name) {
+	const $showResult = createElement('div', 'loseTitle');
+
+	if (name) {
+		$showResult.innerText = name + ' wins';
+	} else {
+		$showResult.innerText = 'draw';
 	}
-}
 
-function playerDraw() {
-	const $drawTitle = createElement('div', 'loseTitle');
-	$drawTitle.innerText = 'draw';
-
-	return $drawTitle;
-}
-
-function playerWin(name) {
-	const $winTitle = createElement('div', 'loseTitle');
-	$winTitle.innerText = name + ' wins';
-
-	return $winTitle;
-}
-
-function playerLose(name) {
-	const $loseTitle = createElement("div", "loseTitle");
-	$loseTitle.innerText = name + " lose";
-
-	return $loseTitle;
+	return $showResult;
 };
 
-function randomDamage() {
-	return Math.ceil(Math.random() * 20);
-}
+function getRandom(num) {
+	return Math.ceil(Math.random() * num);
+};
 
 $randomButton.addEventListener("click", function() {
 	changeHP(player1);
 	changeHP(player2);
 
-	playerFight(player1, player2);
+	if (player1.hp === 0 || player2.hp === 0) {
+		$randomButton.disabled = true;
+	}
+
+	if (player1.hp === 0 && player1.hp < player2.hp) {
+		$arenas.appendChild(showResultText(player2.name));
+	} else if (player2.hp === 0 && player2.hp < player1.hp) {
+		$arenas.appendChild(showResultText(player1.name));
+	} else if (player1.hp === 0 && player1.hp < player2.hp) {
+		$arenas.appendChild(showResultText());
+	}
 });
 
 $arenas.appendChild(createPlayer(player1));
