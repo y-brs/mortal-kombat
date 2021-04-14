@@ -7,9 +7,12 @@ const player1 = {
 	hp: "100",
 	img: "http://reactmarathon-api.herokuapp.com/assets/scorpion.gif",
 	weapon: ["gun", "stone"],
-	attack: function() {
-		console.log (player1.name + "Fight...");
-	}
+	attack: function(name) {
+		console.log (name + "Fight...");
+	},
+	elHP: elHP,
+	changeHP: changeHP,
+	renderHP: renderHP
 };
 
 const player2 = {
@@ -18,9 +21,12 @@ const player2 = {
 	hp: "100",
 	img: "http://reactmarathon-api.herokuapp.com/assets/sonya.gif",
 	weapon: ["gun", "stone"],
-	attack: function() {
-		console.log (player2.name + "Fight...");
-	}
+	attack: function(name) {
+		console.log (name + "Fight...");
+	},
+	elHP: elHP,
+	changeHP: changeHP,
+	renderHP: renderHP
 };
 
 function createElement(tag, className) {
@@ -54,59 +60,78 @@ function createPlayer(playerObj) {
 	return $player;
 };
 
-function changeHP(player) {
-	const $playerLife = document.querySelector(".player" + player.player + " .life");
+function changeHP(num) {
+	this.hp -= num;
 
-	player.hp -= randomDamage();
-
-	if (player.hp <= 0) {
-		player.hp = 0;
-		$randomButton.disabled = true;
+	if (this.hp <= 0) {
+		this.hp = 0;
 	}
-
-	$playerLife.style.width = player.hp + '%';
 };
 
-function playerFight(firstPlayer, secondPlayer) {
-	if (firstPlayer.hp === 0 && secondPlayer.hp === 0) {
-		$arenas.appendChild(playerDraw());
-	} else if (firstPlayer.hp === 0) {
-		$arenas.appendChild(playerWin(secondPlayer.name));
-	} else if (secondPlayer.hp === 0) {
-		$arenas.appendChild(playerWin(firstPlayer.name));
+function elHP() {
+	const playerLife = document.querySelector(".player" + this.player + " .life");
+
+	return playerLife;
+}
+
+function renderHP() {
+	this.elHP().style.width = this.hp + "%";
+}
+
+function showResultText(name) {
+	const $showResult = createElement('div', 'loseTitle');
+
+	if (name) {
+		$showResult.innerText = name + ' wins';
+	} else {
+		$showResult.innerText = 'draw';
 	}
-}
 
-function playerDraw() {
-	const $drawTitle = createElement('div', 'loseTitle');
-	$drawTitle.innerText = 'draw';
-
-	return $drawTitle;
-}
-
-function playerWin(name) {
-	const $winTitle = createElement('div', 'loseTitle');
-	$winTitle.innerText = name + ' wins';
-
-	return $winTitle;
-}
-
-function playerLose(name) {
-	const $loseTitle = createElement("div", "loseTitle");
-	$loseTitle.innerText = name + " lose";
-
-	return $loseTitle;
+	return $showResult;
 };
 
-function randomDamage() {
-	return Math.ceil(Math.random() * 20);
-}
+function getRandom(num) {
+	return Math.ceil(Math.random() * num);
+};
+
+function createReloadButton() {
+	const $restart = createElement("div", "reloadWrap");
+	const $restartButton = createElement("button", "button");
+
+	$restartButton.innerText = "Restart";
+
+	$restartButton.onclick = function() {
+		window.location.reload();
+	};
+
+	$restart.appendChild($restartButton);
+
+	return $restart;
+};
+
+
 
 $randomButton.addEventListener("click", function() {
-	changeHP(player1);
-	changeHP(player2);
+	player1.changeHP(getRandom(20));
+	player1.renderHP();
 
-	playerFight(player1, player2);
+	player2.changeHP(getRandom(20));
+	player2.renderHP();
+
+	if (player1.hp === 0 || player2.hp === 0) {
+		// $randomButton.disabled = true;
+		$randomButton.style.visibility = "hidden";
+
+		$arenas.appendChild(createReloadButton());
+	}
+
+	if (player1.hp === 0 && player1.hp < player2.hp) {
+		$arenas.appendChild(showResultText(player2.name));
+	} else if (player2.hp === 0 && player2.hp < player1.hp) {
+		$arenas.appendChild(showResultText(player1.name));
+	} else if (player1.hp === 0 && player2.hp === 0) {
+		$arenas.appendChild(showResultText());
+	}
 });
 
 $arenas.appendChild(createPlayer(player1));
