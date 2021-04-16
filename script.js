@@ -122,6 +122,7 @@ function enemyAttack() {
 
 $fightForm.addEventListener("submit", function(e) {
 	e.preventDefault();
+
 	const enemy = enemyAttack();
 	const attack = {};
 
@@ -138,10 +139,15 @@ $fightForm.addEventListener("submit", function(e) {
 		item.checked = false;
 	}
 
-	player1.changeHP(enemy.value);
-	player1.renderHP();
+	if (enemy.hit != attack.defence) {
+		player1.changeHP(enemy.value);
+	}
 
-	player2.changeHP(attack.value);
+	if (attack.hit != enemy.defence) {
+		player2.changeHP(attack.value);
+	}
+
+	player1.renderHP();
 	player2.renderHP();
 
 	if (player1.hp === 0 || player2.hp === 0) {
