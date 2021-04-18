@@ -202,32 +202,31 @@ function generateLogs(type, player1, player2, hpDamage, hpValue) {
 	const date = new Date();
 	const dateFormt = `${date.getHours()}:${date.getMinutes()}`;
 
-	switch(type) {
+	switch (type) {
 		case "defence":
 		case "hit":
-			text = logs[type][getRandom(type.length) - 1].replace("[playerKick]", player1.name).replace("[playerDefence]", player2.name);
+			text = logs[type][getRandom(type.length)].replace("[playerKick]", player1.name).replace("[playerDefence]", player2.name);
 			el = `<p>${dateFormt} – ${text} -${hpDamage} [${hpValue}/100]</p>`;
-			$chat.insertAdjacentHTML("afterbegin", el);
 			break;
 
 		case "start":
 			text = logs[type].replace("[time]", dateFormt).replace("[player1]", player1.name).replace("[player2]", player2.name);
 			el = `<p>${text}</p>`;
-			$chat.insertAdjacentHTML("afterbegin", el);
 			break;
 
 		case "end":
-			text = logs[type][getRandom(type.length) - 1].replace("[playerWins]", player1.name).replace("[playerLose]", player2.name);
+			text = logs[type][getRandom(type.length)].replace("[playerWins]", player1.name).replace("[playerLose]", player2.name);
 			el = `<p>${text}</p>`;
-			$chat.insertAdjacentHTML("afterbegin", el);
 			break;
 
 		case "draw":
+		default:
 			text = logs[type];
 			el = `<p>${text}</p>`;
-			$chat.insertAdjacentHTML("afterbegin", el);
 			break;
-		}
+	}
+
+	$chat.insertAdjacentHTML("afterbegin", el);
 };
 
 $fightForm.addEventListener("submit", function(e) {
