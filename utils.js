@@ -1,10 +1,6 @@
-// export function getRandom(num) {
-// 	return Math.ceil(Math.random() * num);
-// };
-
 export const getRandom = (num) => Math.ceil(Math.random() * num);
 
-export function createElement(tag, className) {
+export const createElement = (tag, className) => {
 	const $tag = document.createElement(tag);
 
 	if (className) {
