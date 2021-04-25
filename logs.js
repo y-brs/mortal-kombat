@@ -121,12 +121,12 @@ export const getTextLog = (type, playerName1, playerName2) => {
 	}
 };
 
-export const generateLogs = (type, player1, player2, valueAttack) => {
-	let text = getTextLog(type, player1.name, player2.name);
+export const generateLogs = (type, {name} = {}, {name: playerName2, hp} = {}, valueAttack) => {
+	let text = getTextLog(type, name, playerName2);
 
 	switch (type) {
 		case "hit":
-			text = `${getTime()} ${text} -${valueAttack} [${player2.hp}/100]`;
+			text = `${getTime()} ${text} -${valueAttack} [${hp}/100]`;
 			break;
 
 		case "defence":

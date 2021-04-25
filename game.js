@@ -5,17 +5,17 @@ import { createElement } from "./utils.js";
 const $arenas = document.querySelector(".arenas");
 const $fightForm = document.querySelector(".control");
 
-const createPlayer = (playerObj) => {
-	const $player = createElement("div", "player" + playerObj.player);
+const createPlayer = ({player, hp, name, img}) => {
+	const $player = createElement("div", `player${player}`);
 	const $progressbar = createElement("div", "progressbar");
 	const $character = createElement("div", "character");
 	const $life = createElement("div", "life");
 	const $name = createElement("div", "name");
 	const $img = createElement("img");
 
-	$life.style.width = playerObj.hp + "%";
-	$name.innerText = playerObj.name;
-	$img.src = playerObj.img;
+	$life.style.width = hp + "%";
+	$name.innerText = name;
+	$img.src = img;
 
 	$player.appendChild($progressbar);
 	$player.appendChild($character);
@@ -28,21 +28,21 @@ const createPlayer = (playerObj) => {
 
 $fightForm.addEventListener("submit", function(e) {
 	e.preventDefault();
-	const enemy = enemyAttack();
-	const player = playerAttack();
+	const {hit: hitEnemy, defence: defenceEnemy, value: valueEnemy} = enemyAttack();
+	const {hit, defence, value} = playerAttack();
 
-	if (player.defence !== enemy.hit) {
-		player1.changeHP(enemy.value);
+	if (defence !== hitEnemy) {
+		player1.changeHP(valueEnemy);
 		player1.renderHP();
-		generateLogs("hit", player2, player1, enemy.value);
+		generateLogs("hit", player2, player1, valueEnemy);
 	} else {
 		generateLogs("defence", player2, player1);
 	}
 
-	if (enemy.defence !== player.hit) {
-		player2.changeHP(player.value);
+	if (defenceEnemy !== hit) {
+		player2.changeHP(value);
 		player2.renderHP();
-		generateLogs("hit", player1, player2, player.value);
+		generateLogs("hit", player1, player2, value);
 	} else {
 		generateLogs("defence", player1, player2);
 	}

@@ -32,9 +32,7 @@ export function changeHP(num) {
 };
 
 export function elHP() {
-	const playerLife = document.querySelector(`.player${this.player} .life`);
-
-	return playerLife;
+	return document.querySelector(`.player${this.player} .life`);
 };
 
 export function renderHP() {
@@ -70,9 +68,3 @@ export const playerAttack = () => {
 
 	return attack;
 };
-
-class Player {
-	constructor(props) {
-
-	}
-}
