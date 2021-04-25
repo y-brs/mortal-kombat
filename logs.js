@@ -13,7 +13,7 @@ export const HIT = {
 
 export const ATTACK = ["head", "body", "foot"];
 
-export const logs = {
+export const LOGS = {
 	start: "Часы показывали [time], когда [player1] и [player2] бросили вызов друг другу.",
 	end: [
 		"Результат удара [playerWins]: [playerLose] - труп",
@@ -53,7 +53,7 @@ export const logs = {
 	draw: "Ничья - это тоже победа!"
 };
 
-export function showResultText(name) {
+export const showResultText = (name) => {
 	const $showResult = createElement("div", "loseTitle");
 
 	if (name) {
@@ -65,7 +65,7 @@ export function showResultText(name) {
 	return $showResult;
 };
 
-export function showResult() {
+export const showResult = () => {
 	if (player1.hp === 0 || player2.hp === 0) {
 		$fightForm.style.visibility = "hidden";
 		createReloadButton();
@@ -83,41 +83,64 @@ export function showResult() {
 	}
 };
 
-export function generateLogs(type, player1, player2, hpDamage) {
+export const getTime = () => {
 	const date = new Date();
-	const dateFormt = `${date.getHours()}:${date.getMinutes()}`;
+	return `${date.getHours()}:${date.getMinutes()}`;
+};
 
-	let text = "";
-
+export const getTextLog = (type, playerName1, playerName2) => {
 	switch (type) {
-		case "defence":
-		case "hit":
-			text = logs[type][getRandom(type.length)].replace("[playerKick]", player1.name).replace("[playerDefence]", player2.name);
-			text += ` -${hpDamage} [${player2.hp}/100]`;
+		case "start":
+			return LOGS[type]
+				.replace("[player1]", playerName1)
+				.replace("[player2]", playerName2)
+				.replace("[time]", getTime());
 			break;
 
-		case "start":
-			text = logs[type].replace("[time]", dateFormt).replace("[player1]", player1.name).replace("[player2]", player2.name);
+		case "hit":
+			return LOGS[type][getRandom(LOGS[type].length - 1) - 1]
+				.replace("[playerKick]", playerName1)
+				.replace("[playerDefence]", playerName2);
+			break;
+
+		case "defence":
+			return LOGS[type][getRandom(LOGS[type].length - 1) - 1]
+				.replace("[playerKick]", playerName1)
+				.replace("[playerDefence]", playerName2);
 			break;
 
 		case "end":
-			text = logs[type][getRandom(type.length)].replace("[playerWins]", player1.name).replace("[playerLose]", player2.name);
+			return LOGS[type][getRandom(LOGS[type].length - 1) - 1]
+				.replace("[playerWins]", playerName1)
+				.replace("[playerLose]", playerName2);
 			break;
 
 		case "draw":
-			text = logs[type];
-			break;
-
-		default:
-			text = `:-(`;
+			return LOGS[type];
 			break;
 	}
+};
+
+export const generateLogs = (type, player1, player2, valueAttack) => {
+	let text = getTextLog(type, player1.name, player2.name);
+
+	switch (type) {
+		case "hit":
+			text = `${getTime()} ${text} -${valueAttack} [${player2.hp}/100]`;
+			break;
+
+		case "defence":
+		case "end":
+		case "draw":
+			text = `${getTime()} ${text}`;
+			break;
+	};
 
 	const el = `<p>${text}</p>`;
 	$chat.insertAdjacentHTML("afterbegin", el);
 };
 
-export function createReloadButton() {
+export const createReloadButton = () => {
 	const $reloadButtonDiv = createElement("div", "reloadWrap");
 	const $reloadButton = createElement("button", "button");
 	$reloadButton.innerText = "reload";

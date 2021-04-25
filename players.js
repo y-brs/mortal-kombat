@@ -8,7 +8,6 @@ export const player1 = {
 	name: "SCORPION",
 	hp: "100",
 	img: "http://reactmarathon-api.herokuapp.com/assets/scorpion.gif",
-	weapon: ["gun", "stone"],
 	elHP,
 	changeHP,
 	renderHP
@@ -19,7 +18,6 @@ export const player2 = {
 	name: "SONYA",
 	hp: "100",
 	img: "http://reactmarathon-api.herokuapp.com/assets/sonya.gif",
-	weapon: ["gun", "stone"],
 	elHP,
 	changeHP,
 	renderHP
@@ -43,7 +41,7 @@ export function renderHP() {
 	this.elHP().style.width = this.hp + "%";
 };
 
-export function enemyAttack() {
+export const enemyAttack = () => {
 	const hit = ATTACK[getRandom(3) - 1];
 	const defence = ATTACK[getRandom(3) - 1];
 
@@ -54,7 +52,7 @@ export function enemyAttack() {
 	}
 };
 
-export function playerAttack() {
+export const playerAttack = () => {
 	const attack = {};
 
 	for (let item of $fightForm) {
@@ -72,3 +70,9 @@ export function playerAttack() {
 
 	return attack;
 };
+
+class Player {
+	constructor(props) {
+
+	}
+}
