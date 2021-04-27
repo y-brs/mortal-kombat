@@ -1,3 +1,5 @@
 # MK2021
 
-Супер-пупер JS марафон по игре Mortal Kombat.
+Super duper JS marathon "Mortal Kombat".
+
+Let's fight!

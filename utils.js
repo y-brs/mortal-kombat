@@ -9,3 +9,8 @@ export const createElement = (tag, className) => {
 
 	return $tag;
 };
+
+export const getTime = () => {
+	const date = new Date();
+	return `${date.getHours()}:${date.getMinutes()}`;
+};

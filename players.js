@@ -1,45 +1,24 @@
-import { HIT, ATTACK } from "./logs.js";
+import { HIT, ATTACK } from "./constants.js";
 import { getRandom } from "./utils.js";
+import Player from "./playerClass.js";
 
 const $fightForm = document.querySelector(".control");
 
-export const player1 = {
+export const player1 = new Player ({
 	player: 1,
 	name: "SCORPION",
 	hp: "100",
 	img: "http://reactmarathon-api.herokuapp.com/assets/scorpion.gif",
-	elHP,
-	changeHP,
-	renderHP
-};
+	rootSelector: "arenas"
+});
 
-export const player2 = {
+export const player2 = new Player ({
 	player: 2,
 	name: "SONYA",
 	hp: "100",
 	img: "http://reactmarathon-api.herokuapp.com/assets/sonya.gif",
-	elHP,
-	changeHP,
-	renderHP
-};
-
-export function changeHP(num) {
-	this.hp -= num;
-
-	if (this.hp <= 0) {
-		this.hp = 0;
-	}
-};
-
-export function elHP() {
-	const playerLife = document.querySelector(`.player${this.player} .life`);
-
-	return playerLife;
-};
-
-export function renderHP() {
-	this.elHP().style.width = this.hp + "%";
-};
+	rootSelector: "arenas"
+});
 
 export const enemyAttack = () => {
 	const hit = ATTACK[getRandom(3) - 1];
@@ -70,9 +49,3 @@ export const playerAttack = () => {
 
 	return attack;
 };
-
-class Player {
-	constructor(props) {
-
-	}
-}
