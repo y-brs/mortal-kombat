@@ -9,9 +9,9 @@ export const ATTACK = ["head", "body", "foot"];
 export const LOGS = {
 	start: "Часы показывали [time], когда [player1] и [player2] бросили вызов друг другу.",
 	end: [
-		"Результат удара [playerWins]: [playerLose] - труп",
-		"[playerLose] погиб от удара бойца [playerWins]",
-		"Результат боя: [playerLose] - жертва, [playerWins] - убийца",
+		"Результат удара [playerWins]: [playerLose] — труп.",
+		"[playerLose] погиб от удара бойца [playerWins].",
+		"Результат боя: [playerLose] — жертва, [playerWins] — убийца.",
 	],
 	hit: [
 		"[playerDefence] пытался сконцентрироваться, но [playerKick] разбежавшись раздробил копчиком левое ухо врага.",
@@ -43,5 +43,5 @@ export const LOGS = {
 		"[playerKick] не думал о бое, потому расстроенный [playerDefence] отпрыгнул от удара кулаком куда обычно не бьют.",
 		"[playerKick] обманулся и жестокий [playerDefence] блокировал удар стопой в солнечное сплетение."
 	],
-	draw: "Ничья - это тоже победа!"
+	draw: "Ничья — это тоже победа!"
 };

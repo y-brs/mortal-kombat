@@ -74,7 +74,7 @@ export const generateLogs = (type, {name} = {}, {name: playerName2, hp} = {}, va
 
 	switch (type) {
 		case "hit":
-			text = `${getTime()} ${text} -${valueAttack} [${hp}/100]`;
+			text = `${getTime()} ${text} –${valueAttack} [${hp}/100]`;
 			break;
 
 		case "defence":
