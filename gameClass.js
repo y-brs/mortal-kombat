@@ -32,7 +32,7 @@ class Game {
 		player1.createPlayer();
 		player2.createPlayer();
 
-		generateLogs("start", this.player1, this.player2);
+		generateLogs("start", player1, player2);
 	};
 };
 
