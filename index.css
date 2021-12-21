@@ -1,72 +1,74 @@
 @font-face {
-    font-family: 'Mortal Kombat 3';
-    src: url('./assets/fonts/MortalKombat3-Regular.eot');
-    src: url('./assets/fonts/MortalKombat3-Regular.eot?#iefix') format('embedded-opentype'),
-    url('./assets/fonts/MortalKombat3-Regular.woff2') format('woff2'),
-    url('./assets/fonts/MortalKombat3-Regular.woff') format('woff'),
-    url('./assets/fonts/MortalKombat3-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Mortal Kombat 3';
+  src: url('./assets/fonts/MortalKombat3-Regular.eot');
+  src: url('./assets/fonts/MortalKombat3-Regular.eot?#iefix') format('embedded-opentype'),
+  url('./assets/fonts/MortalKombat3-Regular.woff2') format('woff2'),
+  url('./assets/fonts/MortalKombat3-Regular.woff') format('woff'),
+  url('./assets/fonts/MortalKombat3-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
-*, *:before, *:after {
-    box-sizing: border-box;
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
 }
 
 body {
-    background-color: #424542;
+  background-color: #424542;
 }
 
 .root {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding-top: 30px;
-    min-height: 100vh;
-    min-width: 100vh;
-    background-size: contain;
-    background-position: center;
-    position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 30px;
+  min-height: 100vh;
+  min-width: 100vh;
+  background-size: contain;
+  background-position: center;
+  position: relative;
 }
 
 .title {
-    position: absolute;
-    font-family: "Mortal Kombat 3";
-    font-size: 48px;
-    color: #FFF;
-    top: 10px;
-    left: 50%;
-    color: #efefef;
-    text-shadow: 4px 2px 1px #000;
-    transform: translate(-50%, 0);
-    white-space: nowrap;
+  position: absolute;
+  font-family: "Mortal Kombat 3";
+  font-size: 48px;
+  color: #FFF;
+  top: 10px;
+  left: 50%;
+  color: #efefef;
+  text-shadow: 4px 2px 1px #000;
+  transform: translate(-50%, 0);
+  white-space: nowrap;
 }
 
 .player {
-    position: absolute;
-    width: 210px;
-    height: 367px;
-    z-index: 3;
-    bottom: 44px;
-    left: 50%;
-    margin-left: -105px;
-    transform: translate(-205%, 0px);
+  position: absolute;
+  width: 210px;
+  height: 367px;
+  z-index: 3;
+  bottom: 44px;
+  left: 50%;
+  margin-left: -105px;
+  transform: translate(-205%, 0px);
 }
 
 .player img {
-    max-width: 100%;
-    max-height: 100%;
-    height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  height: 100%;
 }
 
 .parent {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
 }
 
 .div1 { grid-area: 1 / 1 / 2 / 2; }
@@ -95,45 +97,45 @@ body {
 .div24 { grid-area: 4 / 6 / 5 / 7; }
 
 .row {
-    display: flex;
-    position: relative;
-    z-index: 1;
+  display: flex;
+  position: relative;
+  z-index: 1;
 }
 
 .row:hover {
-    z-index: 2;
+  z-index: 2;
 }
 .character {
-    width: 137px;
-    height: 176px;
-    position: relative;
-    z-index: 1;
-    cursor: pointer;
+  width: 137px;
+  height: 176px;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
 }
 
 .character:hover,
 .character.active {
-    z-index: 2;
+  z-index: 2;
 }
 
 .character:hover:before,
 .character.active:before {
-    content: "";
-    display: block;
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    top: -2px;
-    left: -2px;
-    position: absolute;
-    border: 14px solid #21aa21;
+  content: "";
+  display: block;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  top: -2px;
+  left: -2px;
+  position: absolute;
+  border: 14px solid #21aa21;
 }
 .character.disabled {
-    cursor: default;
+  cursor: default;
 }
 .character.disabled:hover:before {
-    display: none;
+  display: none;
 }
 
 .character img {
-    width: 100%;
+  width: 100%;
 }
